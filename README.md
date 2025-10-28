@@ -1,4 +1,4 @@
-# Projeto-Final-Hospital--Bogdan-Dinis
+# Projeto Final - Gestão de Grupo Hospitalar: Bogdan & Dinis
 
 ## 1ª Fase - Divisão de tarefas
 Analisamos Ambos dividimos as tarefas. O Bogdan foi atríbuido com a inserção de dados nas tabelas INSERT INTO, consultas e fez os CREATE TABLE no script, enquanto o Dinis planeou a base de dados, as tabelas e a atribuição de chaves estrangeiras.
