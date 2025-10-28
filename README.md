@@ -1,2 +1,2 @@
 # Projeto-Final-Hospital--Bogdan-Dinis
-Trabalho do Bogda e Dinis, projeto final sobre o hospital.
+Começas o projeto por dividir as nossas tarefas, o Dinis começou por fazer as tabelas através do DBeaver enquanto eu fazia as tabelas pelo script e fiz o INSERT INTO
