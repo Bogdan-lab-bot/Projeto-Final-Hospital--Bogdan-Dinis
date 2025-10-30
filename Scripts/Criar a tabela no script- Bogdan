@@ -1,0 +1,87 @@
+-- Criação das tabelas --
+
+CREATE TABLE Hospital (
+  IdHosp     INT AUTO_INCREMENT PRIMARY KEY,
+  NomeHosp   VARCHAR(100),
+  Localidade VARCHAR(100)
+);
+
+CREATE TABLE Laboratorio (
+  IdLab INT AUTO_INCREMENT PRIMARY KEY,
+  Nome  VARCHAR(100)
+);
+
+CREATE TABLE Analise (
+  IdAnalise INT AUTO_INCREMENT PRIMARY KEY,
+  Tipo      VARCHAR(100),
+  Data      DATE,
+  Resultado VARCHAR(100),
+  IdLab     INT,
+  FOREIGN KEY (IdLab) REFERENCES Laboratorio(IdLab)
+);
+
+CREATE TABLE Instituicao (
+  IdInst INT AUTO_INCREMENT PRIMARY KEY,
+  Nome   VARCHAR(100),
+  Morada VARCHAR(100)
+);
+
+CREATE TABLE Empregado (
+  IdEmp       INT AUTO_INCREMENT PRIMARY KEY,
+  Categoria   VARCHAR(100),
+  Vencimento  DOUBLE,
+  SocioSocial VARCHAR(1),
+  IdHosp      INT,
+  IdInst      INT,
+  FOREIGN KEY (IdHosp) REFERENCES Hospital(IdHosp),
+  FOREIGN KEY (IdInst) REFERENCES Instituicao(IdInst)
+);
+
+CREATE TABLE Doente (
+  IdDoente    INT AUTO_INCREMENT PRIMARY KEY,
+  Nome        VARCHAR(100),
+  Morada      VARCHAR(100),
+  Telefone    VARCHAR(12),
+  Doenca      VARCHAR(100),
+  Idade       INT(3),
+  SocioSocial VARCHAR(1),
+  IdAnalise   INT,
+  IdEmp       INT,
+  IdInst      INT,
+  FOREIGN KEY (IdAnalise) REFERENCES Analise(IdAnalise),
+  FOREIGN KEY (IdEmp) REFERENCES Empregado(IdEmp),
+  FOREIGN KEY (IdInst) REFERENCES Instituicao(IdInst)
+);
+
+CREATE TABLE Enfermaria (
+  IdEnfermaria INT AUTO_INCREMENT PRIMARY KEY,
+  Sigla        VARCHAR(100),
+  Camas        INT,
+  Funcao       VARCHAR(100),
+  IdHosp       INT,
+  FOREIGN KEY (IdHosp) REFERENCES Hospital(IdHosp)
+);
+
+CREATE TABLE Enfermeiro (
+  IdEnfermeiro INT AUTO_INCREMENT PRIMARY KEY,
+  Nome         VARCHAR(100),
+  Morada       VARCHAR(100),
+  Telefone     VARCHAR(12),
+  Idade        INT(2),
+  IdEnfermaria INT,
+  IdEmp        INT,
+  FOREIGN KEY (IdEnfermaria) REFERENCES Enfermaria(IdEnfermaria),
+  FOREIGN KEY (IdEmp) REFERENCES Empregado(IdEmp)
+);
+
+CREATE TABLE Medico (
+  IdMedico      INT AUTO_INCREMENT PRIMARY KEY,
+  Nome          VARCHAR(100),
+  Morada        VARCHAR(100),
+  Telefone      VARCHAR(12),
+  Especialidade VARCHAR(100),
+  Miope         VARCHAR(1),
+  Idade         INT,
+  IdEmp         INT,
+  FOREIGN KEY (IdEmp) REFERENCES Empregado(IdEmp)
+);
