@@ -138,53 +138,59 @@ INSERT INTO Instituicao (Nome, Morada) VALUES
 -- CONSULTAS
 -- ------------------------
 
-
---  Order by  --
-
+--  ORDER BY  --
 SELECT Nome, Especialidade
 FROM Medico
-ORDER BY Especialidade ASC;
+ORDER BY Especialidade ASC, Nome ASC;
 
---  Inner join  --
 
+--  INNER JOIN  --
 SELECT D.Nome AS Doente, E.Categoria AS EmpregadoCategoria
 FROM Doente D
-INNER JOIN Empregado E ON D.SocioSocial = E.SocioSocial;
+INNER JOIN Empregado E ON D.IdEmp = E.IdEmp;
 
---  Like  --
 
+--  LIKE  --
 SELECT Nome, Idade, Doenca
 FROM Doente
 WHERE Nome LIKE 'L%';
 
---  Group by  --
 
+--  GROUP BY  --
 SELECT Especialidade, COUNT(*) AS TotalMedicos
 FROM Medico
-GROUP BY Especialidade;
+GROUP BY Especialidade
+ORDER BY TotalMedicos DESC;
 
---  Função agregadora  --
 
+--  FUNÇÃO AGREGADORA  --
 SELECT AVG(Vencimento) AS MediaSalarial
 FROM Empregado;
 
---  Subconsulta  --
+-- (alternativa detalhada por categoria)
+-- SELECT Categoria, AVG(Vencimento) AS MediaPorCategoria
+-- FROM Empregado
+-- GROUP BY Categoria;
 
+
+--  SUBCONSULTA  --
 SELECT Nome, Doenca
 FROM Doente
 WHERE Doenca = (
     SELECT Doenca
     FROM Doente
     WHERE Nome = 'João Pão Azeitão'
+    LIMIT 1
 );
 
---  Consulta complexa  --
 
+--  CONSULTA COMPLEXA  --
 SELECT M.Nome AS Medico,
        M.Especialidade,
        COUNT(D.IdDoente) AS DoentesMais50
 FROM Medico M
-INNER JOIN Doente D ON D.Morada LIKE CONCAT('%', M.Morada, '%')
+INNER JOIN Doente D ON M.IdHosp = D.IdHosp
 WHERE D.Idade > 50
 GROUP BY M.Nome, M.Especialidade
 ORDER BY DoentesMais50 DESC;
+
